@@ -1,6 +1,6 @@
 # HeyAbrar portfolio
 
-Abrar Ahmed's standalone AI and full-stack engineering portfolio.
+Abrar's standalone AI and full-stack engineering portfolio.
 
 ## Development
 

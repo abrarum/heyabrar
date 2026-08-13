@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${study.shortTitle} case study | Abrar Ahmed`,
+    title: `${study.shortTitle} case study | Abrar`,
     description: study.summary,
     alternates: {
       canonical: `/work/${study.slug}`,
@@ -58,7 +58,7 @@ export default async function WorkDetailPage({ params }) {
     image: study.featuredImageUrl,
     author: {
       "@type": "Person",
-      name: "Abrar Ahmed",
+      name: "Abrar",
       url: "https://heyabrar.com",
     },
     mainEntityOfPage: `https://heyabrar.com/work/${study.slug}`,
@@ -77,6 +77,7 @@ export default async function WorkDetailPage({ params }) {
               <div>
                 <p className="portfolio-eyebrow">{study.industry}</p>
                 <h1>{study.title}</h1>
+                <p className="work-detail-summary">{study.summary}</p>
               </div>
               <dl className="work-detail-meta">
                 <div>
@@ -87,21 +88,38 @@ export default async function WorkDetailPage({ params }) {
                   <dt>My role</dt>
                   <dd>{study.role}</dd>
                 </div>
+                {study.website && (
+                  <div>
+                    <dt>Website</dt>
+                    <dd>
+                      <a
+                        className="work-meta-link"
+                        href={study.website.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {study.website.name} <span aria-hidden="true">↗</span>
+                      </a>
+                    </dd>
+                  </div>
+                )}
+                {study.platform && (
+                  <div>
+                    <dt>Platform</dt>
+                    <dd>
+                      {study.platform.href ? (
+                        <Link className="work-meta-link" href={study.platform.href}>
+                          {study.platform.name} <span aria-hidden="true">↗</span>
+                        </Link>
+                      ) : (
+                        <span className="work-meta-value">{study.platform.name}</span>
+                      )}
+                    </dd>
+                  </div>
+                )}
               </dl>
             </div>
-            <p className="work-detail-summary">{study.summary}</p>
           </header>
-
-          <div className="work-detail-visual">
-            <Image
-              src={study.featuredImageUrl}
-              alt={study.featuredImageAlt}
-              fill
-              priority
-              sizes="(max-width: 900px) 94vw, 84vw"
-              unoptimized
-            />
-          </div>
 
           <section className="work-highlight-strip" aria-label="Project highlights">
             {study.highlights.map((highlight) => (
@@ -111,19 +129,35 @@ export default async function WorkDetailPage({ params }) {
               </div>
             ))}
           </section>
+          {study.highlightsNote && (
+            <p className="work-highlight-note">{study.highlightsNote}</p>
+          )}
+
+          <section className="work-stack">
+            <p className="portfolio-eyebrow">Technology</p>
+            <div>
+              {study.stack.map((technology) => (
+                <span key={technology}>{technology}</span>
+              ))}
+            </div>
+          </section>
 
           <div className="work-narrative">
-            <aside className="work-narrative-label">Context</aside>
+            <aside className="work-narrative-label">
+              {study.contextLabel ?? "Context"}
+            </aside>
             <section>
-              <h2>The system I joined</h2>
+              <h2>{study.contextTitle ?? "The engineering premise"}</h2>
               {study.context.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </section>
 
-            <aside className="work-narrative-label">Contribution</aside>
+            <aside className="work-narrative-label">
+              {study.contributionLabel ?? "Contribution"}
+            </aside>
             <section>
-              <h2>Where I contributed</h2>
+              <h2>{study.contributionTitle ?? "My ownership"}</h2>
               {study.contribution.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -167,11 +201,13 @@ export default async function WorkDetailPage({ params }) {
 
           <section className="decision-trail">
             <div className="decision-trail-intro">
-              <p className="portfolio-eyebrow">Decision trail</p>
-              <h2>Constraints became architecture.</h2>
+              <p className="portfolio-eyebrow">
+                {study.decisionEyebrow ?? "Decision trail"}
+              </p>
+              <h2>{study.decisionTitle ?? "Constraints became architecture."}</h2>
               <p>
-                Each decision below connects a concrete limitation to the
-                engineering response and its practical effect.
+                {study.decisionDescription ??
+                  "Each decision below connects a concrete limitation to the engineering response and its practical effect."}
               </p>
             </div>
             <ol>
@@ -200,7 +236,7 @@ export default async function WorkDetailPage({ params }) {
           <section className="work-outcomes">
             <div>
               <p className="portfolio-eyebrow">Outcome</p>
-              <h2>What the work produced</h2>
+              <h2>{study.outcomeTitle ?? "What the work produced"}</h2>
             </div>
             <ul>
               {study.outcomes.map((outcome) => (
@@ -209,19 +245,21 @@ export default async function WorkDetailPage({ params }) {
             </ul>
           </section>
 
-          <section className="work-stack">
-            <p className="portfolio-eyebrow">Technology</p>
-            <div>
-              {study.stack.map((technology) => (
-                <span key={technology}>{technology}</span>
-              ))}
-            </div>
-          </section>
-
           <blockquote className="work-reflection">
             <p>{study.reflection}</p>
-            <cite>Abrar Ahmed</cite>
+            <cite>Abrar</cite>
           </blockquote>
+
+          {study.cta && (
+            <section className="work-service-cta">
+              <p className="portfolio-eyebrow">{study.cta.eyebrow}</p>
+              <h2>{study.cta.title}</h2>
+              <p>{study.cta.description}</p>
+              <Link href={study.cta.href}>
+                {study.cta.label} <span aria-hidden="true">→</span>
+              </Link>
+            </section>
+          )}
 
           <nav className="work-next" aria-label="Next case study">
             <span>Next case study</span>

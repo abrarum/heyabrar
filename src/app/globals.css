@@ -98,6 +98,16 @@ textarea:focus-visible {
   outline-offset: 4px;
 }
 
+.home-platform-trigger {
+  color: #7a7068;
+  font-weight: 600;
+}
+
+.home-platform-trigger:hover,
+.home-platform-trigger button[aria-expanded="true"] {
+  color: #660033;
+}
+
 .portfolio-page {
   min-height: 100vh;
   background:
@@ -128,24 +138,22 @@ textarea:focus-visible {
   text-decoration: none;
 }
 
-.portfolio-monogram {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #660033;
-  color: #ffffff;
-  font-family: var(--font-space-global);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
 .portfolio-nav {
   display: flex;
   align-items: center;
   gap: 28px;
+}
+
+.portfolio-platform-trigger {
+  color: #3a3530;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.portfolio-platform-trigger:hover,
+.portfolio-platform-trigger button[aria-expanded="true"] {
+  color: #660033;
 }
 
 .portfolio-nav a {
@@ -350,7 +358,7 @@ textarea:focus-visible {
 .work-detail-hero {
   width: min(1180px, calc(100% - 48px));
   margin: 0 auto;
-  padding: clamp(54px, 7vw, 90px) 0 54px;
+  padding: clamp(32px, 4vw, 52px) 0 clamp(38px, 4vw, 50px);
 }
 
 .work-back-link {
@@ -367,11 +375,11 @@ textarea:focus-visible {
 }
 
 .work-detail-heading {
-  margin-top: 58px;
+  margin-top: clamp(32px, 4vw, 46px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;
   gap: 64px;
-  align-items: end;
+  align-items: start;
 }
 
 .work-detail-heading h1 {
@@ -410,46 +418,50 @@ textarea:focus-visible {
   line-height: 1.55;
 }
 
+.work-meta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #660033;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.work-meta-value {
+  color: #3a3530;
+  font-weight: 600;
+}
+
+.work-meta-link span {
+  transition: transform 180ms ease;
+}
+
+.work-meta-link:hover span {
+  transform: translate(2px, -2px);
+}
+
 .work-detail-summary {
   max-width: 780px;
-  margin-top: 42px;
+  margin-top: 34px;
   color: #3a3530;
   font-size: clamp(19px, 2vw, 25px);
   line-height: 1.65;
 }
 
-.work-detail-visual {
-  position: relative;
-  width: min(1040px, calc(100% - 48px));
-  height: clamp(300px, 46vw, 540px);
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: 26px;
-  background: #1a1714;
-  box-shadow: 0 26px 74px rgba(63, 31, 44, 0.16);
-}
-
-.work-detail-visual img {
-  object-fit: cover;
-}
-
 .work-highlight-strip {
-  width: min(920px, calc(100% - 64px));
-  margin: -34px auto 0;
-  position: relative;
-  z-index: 2;
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-radius: 22px;
+  border-radius: 14px;
   overflow: hidden;
   background: #660033;
   color: #ffffff;
-  box-shadow: 0 18px 55px rgba(74, 0, 37, 0.24);
 }
 
 .work-highlight-strip div {
-  min-height: 132px;
-  padding: 26px 30px;
+  min-height: 116px;
+  padding: 24px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -474,9 +486,18 @@ textarea:focus-visible {
   letter-spacing: 0.07em;
 }
 
+.work-highlight-note {
+  width: min(1180px, calc(100% - 48px));
+  margin: 12px auto 0;
+  color: #7a7068;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: right;
+}
+
 .work-narrative {
   width: min(960px, calc(100% - 48px));
-  margin: clamp(96px, 12vw, 150px) auto;
+  margin: clamp(78px, 9vw, 118px) auto;
   display: grid;
   grid-template-columns: 160px minmax(0, 1fr);
   gap: 70px 56px;
@@ -710,15 +731,18 @@ textarea:focus-visible {
 }
 
 .work-stack {
-  width: min(980px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: 36px 0;
+  width: min(960px, calc(100% - 48px));
+  margin: 30px auto 0;
+  padding: 28px 0 0;
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
   border-top: 1px solid rgba(102, 0, 51, 0.16);
-  border-bottom: 1px solid rgba(102, 0, 51, 0.16);
 }
 
 .work-stack > div {
-  margin-top: 20px;
+  margin-top: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -756,6 +780,51 @@ textarea:focus-visible {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.work-service-cta {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto clamp(76px, 10vw, 120px);
+  padding: clamp(36px, 6vw, 72px);
+  border-radius: 24px;
+  background: #4a0025;
+  color: #ffffff;
+}
+
+.work-service-cta .portfolio-eyebrow {
+  color: #efbf04;
+}
+
+.work-service-cta h2 {
+  max-width: 820px;
+  margin-top: 12px;
+  font-family: Georgia, "Palatino Linotype", serif;
+  font-size: clamp(34px, 5vw, 62px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.work-service-cta > p:not(.portfolio-eyebrow) {
+  max-width: 680px;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.work-service-cta > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 14px 20px;
+  border-radius: 999px;
+  background: #efbf04;
+  color: #4a0025;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .work-next {
@@ -828,11 +897,7 @@ textarea:focus-visible {
   }
 
   .portfolio-brand {
-    font-size: 0;
-  }
-
-  .portfolio-monogram {
-    font-size: 10px;
+    font-size: 18px;
   }
 
   .portfolio-nav {
@@ -843,7 +908,11 @@ textarea:focus-visible {
     font-size: 11px;
   }
 
-  .portfolio-nav a:first-child {
+  .portfolio-platform-trigger {
+    font-size: 11px;
+  }
+
+  .portfolio-nav > a:first-child {
     display: none;
   }
 
@@ -888,7 +957,7 @@ textarea:focus-visible {
   }
 
   .work-detail-heading {
-    margin-top: 42px;
+    margin-top: 28px;
     gap: 34px;
   }
 
@@ -901,15 +970,8 @@ textarea:focus-visible {
     margin-top: 30px;
   }
 
-  .work-detail-visual {
-    width: calc(100% - 32px);
-    height: 56vw;
-    border-radius: 20px;
-  }
-
   .work-highlight-strip {
     width: calc(100% - 32px);
-    margin-top: 16px;
     grid-template-columns: 1fr;
   }
 
@@ -930,6 +992,11 @@ textarea:focus-visible {
 
   .work-narrative section + .work-narrative-label {
     margin-top: 30px;
+  }
+
+  .work-stack {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .work-gallery {
@@ -977,7 +1044,8 @@ textarea:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .work-index-image img,
-  .text-link span {
+  .text-link span,
+  .work-meta-link span {
     transition: none;
   }
 }

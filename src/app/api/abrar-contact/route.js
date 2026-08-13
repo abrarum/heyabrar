@@ -40,7 +40,7 @@ export async function POST(request) {
         if (features) textParts.push(`Must-have Features:\n${features}`);
         if (message) textParts.push(`Message:\n${message}`);
 
-        const emailSubject = subject || 'Abrar Ahmed portfolio lead message';
+        const emailSubject = subject || 'Abrar portfolio lead message';
 
         const mailOptions = {
             from: process.env.EMAIL_FROM,

@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { TESTIMONIALS } from "@/lib/testimonials"
 import { SERVICES } from "@/lib/services"
+import PlatformMenu from "@/components/PlatformMenu"
 
 // ─── Brand + Palette ──────────────────────────────────────────────────────────
 const B = {
@@ -25,6 +26,7 @@ const US_PHONE_TEL = "+16507708841"
 const US_PHONE_DISPLAY = "+1 (650)-770-8841"
 const DE_PHONE_TEL = "+4917642030519"
 const DE_PHONE_DISPLAY = "017642030519"
+const BOOKING_URL = "https://cal.com/aifantry/20min?overlayCalendar=true"
 const FEATURED_REVIEW_PREVIEW_LENGTH = 800
 const GRID_REVIEW_PREVIEW_LENGTH = 400
 
@@ -223,7 +225,7 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          subject: "Abrar Ahmed portfolio - Free Feasibility Review",
+          subject: "Abrar portfolio - Free Feasibility Review",
           email: leadForm.email,
           idea: leadForm.idea,
           users: leadForm.users,
@@ -253,7 +255,7 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
       const res = await fetch("/api/abrar-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, subject: "Abrar Ahmed portfolio lead message" }),
+        body: JSON.stringify({ ...form, subject: "Abrar portfolio lead message" }),
       })
       setFormStatus(res.ok ? "success" : "error")
       if (res.ok) {
@@ -288,19 +290,27 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
           transition: "background 0.4s, border-bottom 0.4s",
         }}
       >
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-          <span
-            aria-hidden="true"
-            style={{ width: 32, height: 32, display: "grid", placeItems: "center", borderRadius: "50%", background: B.primary, color: B.white, fontSize: 9, fontWeight: 800, letterSpacing: "0.10em" }}
-          >
-            AA
-          </span>
-          <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 400, color: B.ink, letterSpacing: "-0.01em", lineHeight: 1 }}>Abrar Ahmed</span>
+        <Link href="/" aria-label="HeyAbrar home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 400, color: B.ink, letterSpacing: "-0.035em", lineHeight: 1 }}>HeyAbrar</span>
         </Link>
         <div style={{ display: "flex", gap: isTablet ? 10 : "clamp(14px,1.8vw,26px)", alignItems: "center", flexWrap: "wrap", width: isTablet ? "100%" : "auto" }}>
           {[
             { label: "Process",      href: "#process" },
             { label: "Services",     href: "#services" },
+          ].map(({ label, href }) => (
+            <a key={label} href={href} onClick={(e) => handleSectionNav(e, href)} style={{ fontSize: isMobile ? 11 : 12, letterSpacing: "0.08em", textTransform: "uppercase", color: B.muted, textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap" }}>
+              {label}
+            </a>
+          ))}
+          <PlatformMenu
+            triggerClassName="home-platform-trigger"
+            triggerStyle={{
+              fontSize: isMobile ? 11 : 12,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+            }}
+          />
+          {[
             { label: "Selected Work", href: "#case-studies" },
             { label: "References", href: "#reviews" },
             { label: "Contact",      href: "#contact" },
@@ -369,12 +379,14 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
                   View selected work →
                 </Link>
                 <a
-                  href="#contact"
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noreferrer"
                   style={{ display: "inline-flex", justifyContent: "center", width: isMobile ? "100%" : "auto", background: "transparent", color: B.ink, padding: "14px 30px", borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: "none", letterSpacing: "0.04em", border: "1.5px solid rgba(26,23,20,0.18)", transition: "transform 0.2s ease, background 0.2s ease" }}
                   onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.background = "rgba(26,23,20,0.06)" }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.background = "transparent" }}
                 >
-                  Contact me
+                  Book a 20-minute call
                 </a>
               </div>
             </FadeIn>
@@ -1098,6 +1110,14 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
             <p style={{ fontSize: "clamp(14px,1.35vw,17px)", lineHeight: 1.8, color: "rgba(255,255,255,0.72)", marginBottom: "clamp(32px,4.5vw,54px)", maxWidth: 400 }}>
               Send me a note about the problem you&apos;re solving. We&apos;ll figure out whether I&apos;m the right fit for what you need - and if not, I&apos;ll point you somewhere better.
             </p>
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: B.gold, color: B.ink, padding: "14px 28px", borderRadius: 50, fontSize: 14, fontWeight: 700, textDecoration: "none", letterSpacing: "0.04em", marginBottom: 34 }}
+            >
+              Book a 20-minute call →
+            </a>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {[
                 "✓  100+ clients served",
@@ -1153,7 +1173,8 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
       {/* FOOTER */}
       <footer style={{ padding: "26px 8vw", background: B.primaryDark, display: "flex", alignItems: isTablet ? "flex-start" : "center", justifyContent: "space-between", flexWrap: "wrap", flexDirection: isTablet ? "column" : "row", gap: 14 }}>
         <div style={{ display: "flex", alignItems: isMobile ? "flex-start" : "center", gap: 24, flexWrap: "wrap", flexDirection: isMobile ? "column" : "row" }}>
-          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.32)", letterSpacing: "0.04em" }}>© 2026 Abrar Ahmed</span>
+          <Link href="/" style={{ color: B.white, fontFamily: SERIF, fontSize: 21, letterSpacing: "-0.03em", textDecoration: "none" }}>HeyAbrar</Link>
+          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.32)", letterSpacing: "0.04em" }}>© 2026</span>
           <a href={`tel:${US_PHONE_TEL}`} style={{ textDecoration: "none" }}
             onMouseEnter={(e) => e.currentTarget.querySelector("span").style.color = B.white}
             onMouseLeave={(e) => e.currentTarget.querySelector("span").style.color = "rgba(255,255,255,0.75)"}
@@ -1172,6 +1193,7 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
         <div style={{ display: "flex", gap: 24, flexWrap: "wrap", width: isMobile ? "100%" : "auto" }}>
           {[
             { label: "Selected work", href: "/work" },
+            { label: "Shopify app development", href: "/shopify-custom-app-development" },
             { label: "Contact", href: "#contact" },
           ].map((l) => (
             <Link

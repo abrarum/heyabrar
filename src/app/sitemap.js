@@ -14,6 +14,12 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/shopify-custom-app-development`,
+      changeFrequency: "monthly",
+      priority: 0.95,
+      lastModified: new Date("2026-08-05"),
+    },
     ...WORK.map((study) => ({
       url: `${baseUrl}/work/${study.slug}`,
       changeFrequency: "monthly",

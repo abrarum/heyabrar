@@ -9,7 +9,8 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:shopify": "node scripts/verify-shopify-page.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.6.2",

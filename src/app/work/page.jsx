@@ -5,9 +5,9 @@ import PortfolioHeader from "@/components/PortfolioHeader"
 import { WORK } from "@/lib/work"
 
 export const metadata = {
-  title: "Selected work | Abrar Ahmed",
+  title: "Selected work | Abrar",
   description:
-    "Selected AI, full-stack, mobile, and platform engineering work by Abrar Ahmed, with the constraints, decisions, and outcomes behind each system.",
+    "Selected AI, full-stack, mobile, and platform engineering work by Abrar, with the constraints, decisions, and outcomes behind each system.",
   alternates: {
     canonical: "/work",
   },
