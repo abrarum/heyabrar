@@ -4,6 +4,14 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-07-23",
   "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "AWS_REGION": "us-east-1",
+    "SES_FROM_EMAIL": "info@heyabrar.com",
+    "CONTACT_EMAIL_TO": "info@heyabrar.com"
+  },
+  "secrets": {
+    "required": ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  },
   "workers_dev": false,
   "preview_urls": false,
   "routes": [

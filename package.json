@@ -10,15 +10,17 @@
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "start": "next start",
     "lint": "eslint .",
+    "test:contact": "node --conditions=react-server --test tests/contact-email.test.mjs tests/contact-form-wiring.test.mjs",
     "test:shopify": "node scripts/verify-shopify-page.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.1114.0",
     "framer-motion": "^12.6.2",
     "lucide-react": "^0.485.0",
     "next": "^16.2.11",
-    "nodemailer": "^9.0.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "server-only": "^0.0.1",
     "sharp": "^0.35.3"
   },
   "devDependencies": {

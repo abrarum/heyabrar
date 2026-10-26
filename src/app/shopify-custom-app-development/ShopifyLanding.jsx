@@ -15,6 +15,10 @@ import {
   KRAFTED_METRICS,
   SHOPIFY_FAQS,
 } from "@/lib/shopifyLanding.mjs"
+import {
+  CONTACT_FORM_TYPES,
+  submitContactForm,
+} from "@/lib/contactForm.mjs"
 import styles from "./ShopifyLanding.module.css"
 
 const capabilities = [
@@ -96,26 +100,18 @@ export default function ShopifyLanding({ testimonials }) {
 
   async function submitFeasibility(event) {
     event.preventDefault()
+    const formElement = event.currentTarget
     setFormState("loading")
-    const form = new FormData(event.currentTarget)
+    const form = new FormData(formElement)
 
     try {
-      const response = await fetch("/api/abrar-contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.get("email"),
-          firstName: form.get("name"),
-          idea: form.get("idea"),
-          users: form.get("users"),
-          budget: form.get("budget"),
-          features: form.get("systems"),
-          subject: "Shopify custom app development - feasibility review",
-        }),
+      await submitContactForm(CONTACT_FORM_TYPES.SHOPIFY, {
+        email: form.get("email"),
+        firstName: form.get("name"),
+        idea: form.get("idea"),
+        features: form.get("systems"),
       })
-
-      if (!response.ok) throw new Error("Request failed")
-      event.currentTarget.reset()
+      formElement.reset()
       setFormState("success")
     } catch {
       setFormState("error")
@@ -365,14 +361,14 @@ export default function ShopifyLanding({ testimonials }) {
           <button type="submit" disabled={formState === "loading"}>{formState === "loading" ? "Sending..." : "Request a feasibility review"}<ArrowRight size={17} aria-hidden="true" /></button>
           <p className={styles.formStatus} aria-live="polite">
             {formState === "success" && "Thanks. Your Shopify requirements are on their way. Abrar will reply shortly."}
-            {formState === "error" && "The form could not be sent. Please email hello@heyabrar.com or use the booking link."}
+            {formState === "error" && "The form could not be sent. Please email info@heyabrar.com or use the booking link."}
           </p>
         </form>
       </section>
 
       <footer className={styles.footer}>
         <ShopifyMark />
-        <div><Link href="/work">Selected work</Link><a href="mailto:hello@heyabrar.com">hello@heyabrar.com</a><a href="#top">Back to top</a></div>
+        <div><Link href="/work">Selected work</Link><a href="mailto:info@heyabrar.com">info@heyabrar.com</a><a href="#top">Back to top</a></div>
       </footer>
     </main>
   )

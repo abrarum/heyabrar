@@ -6,6 +6,10 @@ import Link from "next/link"
 import { TESTIMONIALS } from "@/lib/testimonials"
 import { SERVICES } from "@/lib/services"
 import PlatformMenu from "@/components/PlatformMenu"
+import {
+  CONTACT_FORM_TYPES,
+  submitContactForm,
+} from "@/lib/contactForm.mjs"
 
 // ─── Brand + Palette ──────────────────────────────────────────────────────────
 const B = {
@@ -221,24 +225,17 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
   async function handleLeadSubmit() {
     setLeadStatus("loading")
     try {
-      const res = await fetch("/api/abrar-contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject: "Abrar portfolio - Free Feasibility Review",
-          email: leadForm.email,
-          idea: leadForm.idea,
-          users: leadForm.users,
-          budget: leadForm.budget,
-          features: leadForm.features,
-        }),
+      await submitContactForm(CONTACT_FORM_TYPES.FEASIBILITY, {
+        email: leadForm.email,
+        idea: leadForm.idea,
+        users: leadForm.users,
+        budget: leadForm.budget,
+        features: leadForm.features,
       })
-      setLeadStatus(res.ok ? "success" : "error")
-      if (res.ok) {
-        if (typeof window !== "undefined" && window.fbq) window.fbq("track", "Lead");
-        setLeadForm({ email: "", idea: "", users: "", budget: "", features: "" })
-        setWizardStep(1)
-      }
+      setLeadStatus("success")
+      if (typeof window !== "undefined" && window.fbq) window.fbq("track", "Lead");
+      setLeadForm({ email: "", idea: "", users: "", budget: "", features: "" })
+      setWizardStep(1)
     } catch {
       setLeadStatus("error")
     }
@@ -252,16 +249,10 @@ export default function AbrarOrganic({ featuredCaseStudies }) {
     e.preventDefault()
     setFormStatus("loading")
     try {
-      const res = await fetch("/api/abrar-contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, subject: "Abrar portfolio lead message" }),
-      })
-      setFormStatus(res.ok ? "success" : "error")
-      if (res.ok) {
-        if (typeof window !== "undefined" && window.fbq) window.fbq("track", "Lead");
-        setForm({ firstName: "", lastName: "", email: "", message: "" })
-      }
+      await submitContactForm(CONTACT_FORM_TYPES.GENERAL, form)
+      setFormStatus("success")
+      if (typeof window !== "undefined" && window.fbq) window.fbq("track", "Lead");
+      setForm({ firstName: "", lastName: "", email: "", message: "" })
     } catch {
       setFormStatus("error")
     }
